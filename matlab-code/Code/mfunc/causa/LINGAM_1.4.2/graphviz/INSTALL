@@ -1,0 +1,57 @@
+INSTALL
+
+This file includes short instructions for installing Graphviz
+from the files distributed in this directory. See www.graphviz.org
+for more information on Graphviz.
+
+
+Mac OS X
+--------
+
+System requirements: Mac OS 10.2 or later.
+
+1) Install Graphviz from 'graphviz-1.13-v16.dmg':
+
+   1.1) Open 'graphviz-1.13-v16.dmg' by double-clicking it.
+   1.2) Drag the contents to your preferred folder.
+
+2) Add [YourGraphvizFolder]/Graphviz.app/Contents/MacOS/ to your PATH
+   environment variable. Example (bash shell):
+
+     export PATH=$PATH:[YourGraphvizFolder]/Graphviz.app/Contents/MacOS/
+
+
+Linux
+-----
+
+Graphviz should compile nicely with most Linux distributions,
+so we recommend compiling the latest stable sources available
+from www.graphviz.org.
+
+We also distribute the latest stable sources at the time
+of this writing (graphviz-2.6.tar.gz / Sep 2005).
+
+1) Install Graphviz from graphviz-2.6.tar.gz. For example, to
+   install Graphviz under directory [YourInstallRoot], type
+   the following commands:
+
+     tar xzvf graphviz-2.6.tar.gz
+     cd graphviz-2.6
+     ./configure --prefix=[YourInstallRoot]
+     make
+     make install
+
+2) Add [YourInstallRoot]/bin to your PATH environment variable.
+   Example (bash shell):
+
+     export PATH=$PATH:[YourInstallRoot]/bin
+
+
+Windows
+-------
+
+The Windows installation has not been tested, but the installation
+should proceed as follows:
+
+1) Install Graphviz with 'graphviz-2.6.exe'.
+2) Add the Graphviz executables to your PATH environment variable.

@@ -1,0 +1,2 @@
+global PSVIEWER;
+PSVIEWER = 'gv';

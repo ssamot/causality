@@ -1,0 +1,23 @@
+{
+    "feature_extraction_threads": "2",
+
+    "feature_train_path": "./Models/features_train_en_python.csv",
+    "feature_valid_path": "./Models/features_valid_en_python.csv",
+
+    "feature_train_path_matlab": "./Models/features_train_en_proc.csv",
+    "feature_valid_path_matlab": "./Models/features_valid_en_proc.csv",
+
+
+    "model_path": "./Models/firfi-model.pickle",
+    "plot_feature_importance_path_csv": "./Plots/feature_importance.csv",
+    "plot_feature_importance_path_pdf": "./Plots/feature_importance.pdf",
+
+    "submission_path": "./Submissions/firfi-tree-trees.csv",
+
+    "train_pairs_path": "./Competition/CEdata_final_train_pairs.csv",
+    "train_info_path": "./Competition/CEdata_final_train_publicinfo.csv",
+    "train_target_path": "./Competition/CEdata_final_train_target.csv",
+
+    "valid_info_path": "./Competition/CEdata_valid_publicinfo.csv",
+    "valid_pairs_path": "./Competition/CEdata_final_valid_pairs.csv"
+}

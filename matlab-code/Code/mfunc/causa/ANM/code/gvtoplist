@@ -1,0 +1,5 @@
+#!/bin/bash
+TMPFILE=`mktemp -d /tmp/gvtoplist.XXXXXX`; trap 'rm -Rf $TMPFILE' 0 15
+./viewtoplist $1 $TMPFILE 1
+gv $TMPFILE/toplist.ps
+rm -Rf $TMPFILE

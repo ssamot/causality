@@ -1,0 +1,141 @@
+function [myresu, this]=train(this, mydata)
+%[myresu, this]=train(mymodel, mydata)
+% CEmodel training method.
+% Inputs:
+% this     -- A CEmodel object.
+% mydata   -- A CEdata object.
+%
+% Returns:
+% mymodel  -- The trained model.
+% myresu   -- A  CEresult object containing the results.
+
+% This is a really simple example. There is no training per se,
+% just a method selection. One could vote among methods, select
+% hyper-parameters or do something fancier. In particular,
+% no use is made of the information on variable type 'Numerical',
+% 'Binary' or 'Categorical', stored in pair.CA and pair.CB.
+
+% Isabelle Guyon -- isabelle@clopinet.com -- February 2013
+
+if this.verbosity>0, fprintf('\n==TR> Training %s... \n', class(this)); end
+if this.verbosity<3
+    warning off % Some causality test issue warnings that we ignore...
+end
+
+% We do not train the independence test:
+this.chosen_indep=2;
+
+% Limit the number of training examples and randomly permute them
+% IMPORTANT: This may be a good idea in principle, but then the results are
+% not reproducible. We recommend to do this different in the final
+% submitted code so the training examples are ALWAYS the same and the
+% outcome of training is deterministic.
+P0=length(mydata);
+P=min(P0, this.max_train_num); 
+if P==0, 
+    myresu=test(this, mydata);
+    return; 
+end
+
+if P<P0, shuffle(mydata, P); end
+
+% Benchmark the time it takes to run each method on one pair...
+if this.verbosity>0, fprintf('==TR> Speed benchmark (time is seconds)...\n'); end
+N=length(this.causa_tests);    % number of methods 
+T=zeros(N,1);
+pair=get_X(mydata, 1);
+for j=1:N
+    this.chosen_causa=j;
+    tic;     
+    exec(this, pair);
+    T(j)=toc;
+end
+% Keep only fast methods
+if this.verbosity>1, 
+    for j=1:N, fprintf('\t%s', upper(func2str(this.causa_tests{j}))); end
+    fprintf('\nT(sec)');
+    for j=1:N, fprintf('\t%5.2g', T(j)); end
+    fprintf('\n');
+end
+fast_methods=find(T<this.max_time);
+if isempty(fast_methods), 
+    [~, fast_methods]=min(T);
+    i=1;
+    this.test_on_training_data=1;
+    if this.verbosity>=1
+        fprintf('\n** No training, pick fastest method ** \n');
+    end
+else
+
+    % Loop over training examples
+    N=length(fast_methods);        % number of methods tried
+    V=zeros(P, N);                 % result values
+    YY=get_Y(mydata);              % target values
+    subidx=get_subidx(mydata);     % indices of examples chosen
+
+    if this.verbosity>1
+        fprintf('\nSnum\tTarget');
+        for j=1:N, k=fast_methods(j); fprintf('\t%s', upper(func2str(this.causa_tests{k}))); end
+    end
+
+    for i=1:P
+        % Monitor progress
+        if this.verbosity==1,
+            if ~mod(i, round(P/10))
+                fprintf('%d%% ', round(i/P*100));
+            end
+        elseif this.verbosity>1,
+            fprintf('\n%d\t%d\t', subidx(i), YY(i));
+        end
+        pair=get_X(mydata, i);
+
+        % Loop over causality tests
+        for j=1:N
+            this.chosen_causa=fast_methods(j);  
+            % Perform the test
+            V(i,j) = exec(this, pair);
+            if this.verbosity>1
+                fprintf('%5.2f\t', V(i,j)); 
+            end
+        end
+    end
+    warning on
+
+    if this.verbosity>1, fprintf('\nScore(%%)\t\t'); end
+    % Compute the scores of the various methods
+    R=cell(1, N);
+    S=zeros(1, N);
+    for j=1:N
+        subidx=get_subidx(mydata);
+        X=NaN*ones(P0,1);
+        X(subidx,:)=V(:,j);
+        Y=[mydata.Y, mydata.YT]; % no index indirection
+        R{j}=CEresult(X, Y, subidx);
+        S(j)=CEscore(R{j});
+        if this.verbosity>1
+            fprintf('%5.2f\t', 100*S(j)); 
+        end
+    end
+
+    % Pick the best method (largest score)
+    [~, i]=max(S);
+    this.causa_scores(fast_methods)=S;
+end
+
+this.chosen_causa=fast_methods(i);
+
+if this.verbosity>1
+    fprintf('\nChosen methods:\n');
+    show(this);
+end
+    
+% Eventually re-test the model (for sanity purpose)
+if this.test_on_training_data
+    myresu=test(this, mydata);
+else
+    myresu=R{i}; 
+end
+
+if this.verbosity>0, fprintf('\n==TR> Done training %s...\n', class(this)); end
+
+

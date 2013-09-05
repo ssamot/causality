@@ -1,0 +1,172 @@
+\documentclass[twoside,11pt]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+\usepackage{jmlrwcp2e}
+\usepackage{url}
+
+% Definitions of handy macros can go here
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+% Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
+
+\jmlrheading{1}{2007}{1-16}{}{}{Author Name1 and Author Name2}{NIPS 2008 workshop on causality}
+
+% Short headings should be running head and authors last names
+
+\ShortHeadings{Short Title}{Author Surnames}
+\firstpageno{1}
+
+\begin{document}
+
+\title{Full Paper Title}
+
+\author{\name Author Name1 \email author1@institute.edu \\
+       \addr First Line\\
+       Second Line\\
+       City, State, Zip Code, Country
+       \AND
+       \name Author Name2 \email author2@institute.edu \\
+       \addr First Line\\
+       Second Line\\
+       City, State, Zip Code, Country}
+
+\editor{Isabelle Guyon, Dominik Janzing and Bernhard Sch\"olkopf}
+
+\maketitle
+
+\begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
+This is the abstract.
+\end{abstract}
+
+\begin{keywords}
+  Your keywords here, comma separated
+\end{keywords}
+
+\section{Introduction}
+\label{sec:introduction}
+
+Please limit your paper to {\bf 6 pages} unless you have been instructed otherwise. Submit by November 21, 2008 to causality@clopinet.com. The papers will be pier reviewed and at revision time the number of pages might be increased. The challenge participants should {\bf append their fact sheet} and may {\bf add one extra page} for that purpose. \\
+
+{\noindent \em Remainder omitted in this sample. See http://www.jmlr.org/papers/ for full paper.}
+
+% Acknowledgements should go at the end, before appendices and references
+
+\acks{We would like to acknowledge support for this project ...}
+
+% Manual newpage inserted to improve layout of sample file - not
+% needed in general before appendices/bibliography.
+\bibliography{my_bib}
+
+\newpage
+
+\appendix
+\section*{Appendix A. A theorem}
+\label{sec:theorem}
+
+% Note: in this sample, the section number is hard-coded in. Following
+% proper LaTeX conventions, it should properly be coded as a reference:
+
+%In this appendix we prove the following theorem from
+%Section~\ref{sec:textree-generalization}:
+
+In this appendix we prove the following theorem from
+Section~1.1:
+
+\noindent
+{\bf Theorem} {\it Let ...} \hfill\BlackBox
+
+\noindent
+{\bf Proof}. We use the notation:
+
+\section*{Appendix B. Pot-luck challenge: FACT SHEET.}
+\label{sec:factsheet_v1}
+
+{\begin{center}  \em (for a task solved) \\ \end{center} }
+
+\noindent {\bf Title:}\\
+\noindent {\bf Participant name, address, email and website:}\\
+\noindent {\bf Task(s) solved:}\\
+\noindent {\bf Reference:} Provide a pointer to a technical memorandum or a paper (optional).\\
+
+\noindent {\bf Method:}\\
+Summarize the algorithms you used in a way that those skilled in the art should understand what to do. Profile of your methods as follows:
+\begin{itemize}
+\item Preprocessing
+\item Causal discovery
+\item Feature selection
+\item Classification
+\item Model selection/hyperparameter selection\\
+\end{itemize}
+
+\noindent {\bf Results:} The reader should also know from reading the fact sheet what the strength of the method is. To that end, provide a result table:
+
+\begin{table}[h]
+\begin{center}
+\label{tab:table1}
+\begin{tabular}{|c|c|c|}
+\hline
+Dataset/Task & Score 1 & Score 2 \\
+\hline
+CYTO &  & \\
+PROMO & & \\
+etc. & & \\
+\hline
+
+\end{tabular}
+\caption{Result table.}
+\end{center}
+\end{table}
+
+Comment about the following:
+\begin{itemize}
+\item quantitative advantages (e.g. compact feature subset, simplicity, computational advantages)
+\item qualitative advantages (e.g. compute posterior probabilities, theoretically motivated, has some elements of novelty).
+\end{itemize}
+Briefly explain your implementation. Provide a URL for the code (if available). Precise whether it is a push-button application that can be run on benchmark data to reproduce the results, or resources such as modules or libraries. \\
+
+\noindent {\bf Keywords:}
+Put at least one keyword in each category. Try some of the following keywords and add your own:
+\begin{itemize}
+\item Preprocessing or feature construction: centering, scaling, standardization, PCA.
+\item Causal discovery: Bayesian Network, Structural Equation Models, Probabilistic Graphical Models, Markov Decision Processes, Propensity Scoring, Information Theoretic Method.
+\item Feature selection: filter, wrapper, embedded feature selection, feature ranking, etc.
+\item Classifier: neural networks, nearest neighbors, tree classifier, RF, SVM, kernel-method, least-square, ridge regression, L1 norm regularization, L2 norm regularization, logistic regression, ensemble method, bagging, boosting, Bayesian, transduction.
+\item Hyper-parameter selection: grid-search, pattern search, evidence, bound optimization, cross-validation, K-fold.
+\item Other: ensemble method, transduction.
+\end{itemize}
+
+\section*{Appendix C. Pot-luck challenge: FACT SHEET .}
+\label{sec:factsheet_v2}
+
+{\begin{center} \em (for a donated dataset)\\ \end{center}}
+
+\noindent {\bf Repository URL:}  \url{http://www.causality.inf.ethz.ch/repository.php?id=<yournum>}\\
+
+{\noindent \em Include below the information shown at the above URL.}\\
+
+\noindent {\bf Dataset name:} \\
+
+\noindent {\bf Title:} \\
+\noindent {\bf Authors:} \\
+\noindent {\bf Contact name, address, email and website:} \\
+
+\noindent {\bf Key facts:} \\
+Data dimensions (number of variables, number of entries), variable types, missing data, etc. See \url{ftp://ftp.ics.uci.edu/pub/machine-learning-databases/DOC-REQUIREMENTS} for inspiration.\\
+
+\noindent {\bf Abstract:} \\
+
+\noindent {\bf Keywords:} \\
+
+\vskip 0.2in
+\bibliography{sample}
+
+\end{document}
