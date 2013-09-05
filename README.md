@@ -23,6 +23,7 @@ A. Configure
 "train_target_path": "./Competition/CEdata_final_train_target.csv"
 
 B. Extracting Features
+
 1. Modify SETTINGS.json "feature_extraction_threads" to the number of threads your machine can handle.
 2. Run "python fe.py"
 3. Add Matlab features by running "./extract_matlab_valid.sh"
