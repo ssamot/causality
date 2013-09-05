@@ -12,7 +12,7 @@ python pandas version >=0.11
 Matlab
 Preferably Debian Based Linux Installation
 
-Kaggle Causality Challenge framework. Mostly based on default python version
+Kaggle Causality Challenge framework. Mostly based on kaggle's python code code for the challenge.
 
 To train:
 A. Configure
